@@ -1,32 +1,41 @@
 
 "use client"
-import Image from "next/image";
-import signupImage from "../../public/resources/images/signupImg.svg"
+import { useRouter } from "next/navigation";
 import { loginWithPassword, signup } from './actions'
-import { useContext, useState } from "react";
-
+import { useState, useEffect } from "react";
+import { useUser } from "../context/context";
 
 export default function SignUp() {
+    const router = useRouter()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [fullName, setFullName] = useState("");
-    const [login, setLogin] = useState(true);
-
+    const [loginState, setLoginState] = useState(true);
+    const { login, personalizedPlan } = useUser()
     const handleLogIn = async (e) => {
         e.preventDefault();
-        await loginWithPassword(email, password)
+        const user = await login(email, password)
+        console.log(personalizedPlan);
 
     }
+    useEffect(() => {
+        if (personalizedPlan) {
+            console.log(personalizedPlan);
+            router.push('/dashboard');
+        }
+    }, [personalizedPlan]);
+
     const handleSignUpWithEmailPassword = async (e) => {
         e.preventDefault();
-        await signup(fullName, email, password)
 
+        await signup(fullName, email, password)
+        console.log("signup");
     };
 
     return (
         <div className="max-w-md mx-auto p-6">
-            <form onSubmit={login ? handleLogIn : handleSignUpWithEmailPassword}>
-                {!login && (<div className="mb-4">
+            <form onSubmit={loginState ? handleLogIn : handleSignUpWithEmailPassword}>
+                {!loginState && (<div className="mb-4">
                     <label className="block text-sm font-semibold">Full Name</label>
                     <input
                         type="text"
@@ -76,11 +85,12 @@ export default function SignUp() {
                 </button>
             </div> */}
             {login && (<div className="mt-4 text-center">
-                <div onClick={() => setLogin(false)}>Create an Account</div>
-            </div>)}
+                <div onClick={() => setLoginState(false)}>Create an Account</div>
+            </div>)
+            }
 
 
-        </div>
+        </div >
     );
 }
 

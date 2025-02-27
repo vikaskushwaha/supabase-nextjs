@@ -12,8 +12,10 @@
     "@supabase/ssr": "^0.5.2",
     "axios": "^1.7.9",
     "next": "15.1.7",
+    "pdfjs-dist": "^4.10.38",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-pdf": "^9.2.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

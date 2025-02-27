@@ -10,6 +10,8 @@ import fetchPersonalizedPlanOfUser from '@/hooks/personalizePlanofPatientFroBubb
 
 export async function signup(fullName, email, password) {
     const supabase = await createClient()
+
+
     const patientInfo = await VerifyAndGetDataFromBubble(email)
     console.log(patientInfo.response.count);
     if (patientInfo && patientInfo.response.count > 0) {
@@ -34,7 +36,6 @@ export async function signup(fullName, email, password) {
 export async function loginWithPassword(email, password) {
     const supabase = await createClient()
 
-
     const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
@@ -43,10 +44,5 @@ export async function loginWithPassword(email, password) {
     if (error) {
         redirect('/')
     }
-
-    revalidatePath('/', 'layout')
-
-    const response =
-
-        redirect(`/dashboard?email=${email}`)
+    return data
 }

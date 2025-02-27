@@ -4,17 +4,27 @@
 import Cards from "@/components/cards";
 import GoalsAndChallenges from "@/components/golsAndChallenge";
 import PersonalizedPlan from "@/components/personalizedPlan";
-import axios from "axios";
+
 import { useEffect } from "react";
-import { useSearchParams } from 'next/navigation';
+import { useUser } from "../context/context";
+import { DisplayPersonalizePlan } from "@/components/displayPersonalizePlan";
+
 const Home = () => {
+    const { personalizedPlan } = useUser();
+    console.log("personalizeplan", personalizedPlan);
+    let type;
+    let name;
+    if (personalizedPlan) {
+        type = personalizedPlan[0].type
+        name = personalizedPlan[0].patient_name
+    }
 
     return (
         <div className="w-full">
             <div className="flex flex-col my-6 mx-4 md:mx-10 gap-y-8 py-6">
                 <div className="flex flex-col gap-y-3 mb-6">
                     <div className="flex justify-start">
-                        <p className="text-xl md:text-2xl font-extrabold tracking-widest">Welcome, Vikas</p>
+                        <p className="text-xl md:text-2xl font-extrabold tracking-widest">Welcome, {name}</p>
                     </div>
                 </div>
 
@@ -44,7 +54,7 @@ const Home = () => {
                     />
                 </div>
 
-                <PersonalizedPlan />
+                {type == "conslutation" ? <PersonalizedPlan /> : <DisplayPersonalizePlan />}
                 {/* <GoalsAndChallenges /> */}
 
             </div>
