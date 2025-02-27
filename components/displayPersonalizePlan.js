@@ -3,14 +3,17 @@ import { useUser } from "@/app/context/context";
 import { PatientChallenges } from "./patientChallengesCard";
 import { PersonalizedCard } from "./personalizedCard";
 import { useEffect, useState } from "react";
-import PDFViewer from "./pdfdisplay";
 export const DisplayPersonalizePlan = () => {
     const [feedback, setFeedBack] = useState("")
+    const { personalizedPlan } = useUser();
     const pdfUrl = personalizedPlan?.[0]?.hcare_resource_file || ""
     const fixUrl = (url) => (url.startsWith("//") ? `https:${url}` : url);
     const fixedUrl = fixUrl(pdfUrl)
 
+    const updatePlan = async () => {
+        console.log("feedBAck", feedback);
 
+    }
     return (
 
         <div className="p-6 bg-[#f0fdf0]">
@@ -35,7 +38,7 @@ export const DisplayPersonalizePlan = () => {
                         <p className="p-4">Share with my provider</p>
                     </button>
 
-                    <button>
+                    <button onClick={updatePlan}>
                         <p className="">Update my plan  </p>
                     </button>
 
