@@ -2,9 +2,6 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse } from 'next/server'
 
 export async function updateSession(request) {
-    // console.log("requestone", request);
-    // console.log("🔄 Middleware triggered for:", request.nextUrl.pathname);
-
 
 
     let supabaseResponse = NextResponse.next({
@@ -37,6 +34,7 @@ export async function updateSession(request) {
 
 
     const { data, error } = await supabase.auth.getUser();
+    console.log("form supamiddleware", data);
 
     if (error || !data?.user) {
 
