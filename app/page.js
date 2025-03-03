@@ -1,4 +1,4 @@
-import Image from "next/image";
+
 
 "use client"; // Required for event handling in Next.js App Router
 import { useRouter } from "next/navigation";
