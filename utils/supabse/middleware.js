@@ -44,7 +44,7 @@ export async function updateSession(request) {
     }
 
 
-    console.log("response form supabasemiddlewre", supabaseResponse);
+    // console.log("response form supabasemiddlewre", supabaseResponse);
 
     return supabaseResponse
 }

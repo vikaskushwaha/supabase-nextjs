@@ -16,6 +16,8 @@ const Home = () => {
     let name;
     if (personalizedPlan) {
         type = personalizedPlan[0].type
+
+
         name = personalizedPlan[0].patient_name
     }
 
@@ -54,7 +56,12 @@ const Home = () => {
                     />
                 </div>
 
-                {type == "conslutation" ? <PersonalizedPlan /> : <DisplayPersonalizePlan />}
+                {type === "consultation" || type === "Patient Updated" ? (
+                    <DisplayPersonalizePlan />
+
+                ) : (
+                    <PersonalizedPlan />
+                )}
                 {/* <GoalsAndChallenges /> */}
 
             </div>

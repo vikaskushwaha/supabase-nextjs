@@ -17,8 +17,8 @@ const fetchPersonalizedPlanOfUserFromsupabase = async (id) => {
         .from("Personalized_Plans")
         .select("*")
         .eq("patient_id", patient_id)
-        // .order("plan_number", { ascending: false })
-        .eq("plan_number", 2)
+        .order("plan_number", { ascending: false })
+        // .eq("plan_number", 2)
         .limit(1);
 
     console.log(data);

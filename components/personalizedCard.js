@@ -9,6 +9,7 @@ export const PersonalizedCard = () => {
     return (
 
         <div className=" rounded-lg ">
+
             {personalizedPlanOfClient ? (
                 <div className="space-y-6">
                     {personalizedPlanOfClient.split("\n").map((line, index) => {
