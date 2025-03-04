@@ -6,7 +6,6 @@ import { loginWithPassword } from "../login/actions";
 import fetchPersonalizedPlanOfUser from "@/hooks/personalizePlanofPatientFroBubble";
 import fetchPersonalizedPlanOfUserFromsupabase from "@/hooks/fetchcurrentPersonalizedPlanFormSupabse";
 const UserContext = createContext();
-
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [personalizedPlan, setPersonalizedPlan] = useState(null);
@@ -14,11 +13,11 @@ export const UserProvider = ({ children }) => {
     const supabase = createClient();
     useEffect(() => {
         async function fetchData() {
-            // console.log("****", updatedId);
-
             const { data, error } = await supabase.auth.getSession()
-            console.log(data.session.user.id);
-            if (data.session.user.id) {
+            // console.log(data);
+
+            if (data && data.session) {
+                setUser(data.session.user)
                 const plan = await fetchPersonalizedPlanOfUserFromsupabase(data.session.user.id)
                 if (plan) {
                     setPersonalizedPlan(plan)
@@ -49,10 +48,17 @@ export const UserProvider = ({ children }) => {
             return { error };
         }
     };
+    const logOut = async () => {
+        const res = await supabase.auth.signOut();
+        setPersonalizedPlan(null)
+        setUser(null)
+        setUpdatedId(null)
+        console.log("userLogOut");
 
+    }
 
     return (
-        <UserContext.Provider value={{ user, login, personalizedPlan, updatedId, setUpdatedId }}>
+        <UserContext.Provider value={{ user, login, personalizedPlan, updatedId, setUpdatedId, logOut }}>
             {children}
         </UserContext.Provider>
     );

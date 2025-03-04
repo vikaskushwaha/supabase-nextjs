@@ -36,9 +36,21 @@
 import { useState } from "react";
 import Image from "next/image";
 import logo from '../public/resources/images/logo.svg'
+import { useUser } from "@/app/context/context";
+import { useRouter } from "next/navigation";
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { logOut, user } = useUser();
+    if (user) {
+        console.log(user.id);
 
+    }
+    const router = useRouter();
+    console.log(user);
+    const handlLogout = async () => {
+        await logOut();
+        router.push('/login')
+    }
     return (
         <div className="flex flex-col bg-[#D4D4D4] border-b border-gray-200 w-full z-10">
             {/* Desktop and Mobile Navbar */}
@@ -56,8 +68,9 @@ const Navbar = () => {
                     <button className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full hover:bg-gray-200 transition">
                         About Us
                     </button>
-                    <button className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full hover:bg-gray-200 transition">
-                        Login
+                    <button className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full hover:bg-gray-200 transition" onClick={handlLogout}>
+                        {user ? "Logout" : "Login"}
+
                     </button>
                 </div>
 
@@ -89,8 +102,10 @@ const Navbar = () => {
                     <button className="px-4 py-2 text-sm font-semibold text-gray-700 bg-white rounded-full hover:bg-gray-200 transition">
                         About Us
                     </button>
-                    <button className="px-4 py-2 text-sm font-semibold text-gray-700 bg-white rounded-full hover:bg-gray-200 transition">
-                        Login
+                    <button className="px-4 py-2 text-sm font-semibold text-gray-700 bg-white rounded-full hover:bg-gray-200 transition " onClick={handlLogout}>
+                        {user ? "Logout" : "Login"}
+
+
                     </button>
                 </div>
             )}
