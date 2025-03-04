@@ -34,7 +34,7 @@ export async function updateSession(request) {
 
 
     const { data, error } = await supabase.auth.getUser();
-    console.log("form supamiddleware", data);
+    // console.log("form supamiddleware", data);
 
     if (error || !data?.user) {
 

@@ -9,14 +9,11 @@ import { UpdatedPersonalizePlanSupabase } from "@/hooks/updatedPersonalizePlanIn
 export const DisplayPersonalizePlan = () => {
     const [feedback, setFeedBack] = useState("")
     const { personalizedPlan, setUpdatedId } = useUser();
-    // console.log("newPlan", personalizedPlan);
-
     const pdfUrl = personalizedPlan?.[0]?.hcare_resource_file || ""
     const fixUrl = (url) => (url.startsWith("//") ? `https:${url}` : url);
     const fixedUrl = fixUrl(pdfUrl)
 
     const updatePlan = async () => {
-
         const challenges = personalizedPlan?.[0]?.challenges
         const goals = personalizedPlan?.[0]?.goals;
         let personalized_plan = personalizedPlan?.[0]?.personalized_plan
@@ -34,10 +31,12 @@ Put a delimiter [#]  before each section's bbcode.\n Each task, reminder, or che
             }
         });
         const new_plan = response.data.response
-        // console.log(new_plan);
+        personalizedPlan[0].patient_notes = feedback
         const IdOfNewPlan = await UpdatedPersonalizePlanSupabase(personalizedPlan[0], new_plan)
-        setUpdatedId(IdOfNewPlan)
+        if (IdOfNewPlan) {
 
+            setUpdatedId(IdOfNewPlan)
+        }
     }
 
     return (

@@ -14,7 +14,10 @@ export const UpdatedPersonalizePlanSupabase = async (pervious_plan, newPersonali
         if (error) {
             throw new Error(`Supabase Insert Error: ${error.message}`);
         }
-        return data.id
+
+        console.log("ofsubabse", data[0].id);
+
+        return data[0].id
 
     } catch (error) {
         console.error("An error occurred:", error.message || error);

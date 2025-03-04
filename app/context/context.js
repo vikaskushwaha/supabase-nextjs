@@ -12,21 +12,21 @@ export const UserProvider = ({ children }) => {
     const [personalizedPlan, setPersonalizedPlan] = useState(null);
     const [updatedId, setUpdatedId] = useState("")
     const supabase = createClient();
-
     useEffect(() => {
         async function fetchData() {
+            // console.log("****", updatedId);
+
             const { data, error } = await supabase.auth.getSession()
-            setUpdatedId(data.session.user.id)
             console.log(data.session.user.id);
             if (data.session.user.id) {
                 const plan = await fetchPersonalizedPlanOfUserFromsupabase(data.session.user.id)
                 if (plan) {
                     setPersonalizedPlan(plan)
+                    // setUpdatedId(plan.id)
                 }
             }
         }
         fetchData()
-
     }, [updatedId])
     const login = async (email, password) => {
         try {
@@ -52,7 +52,7 @@ export const UserProvider = ({ children }) => {
 
 
     return (
-        <UserContext.Provider value={{ user, login, personalizedPlan, setUpdatedId }}>
+        <UserContext.Provider value={{ user, login, personalizedPlan, updatedId, setUpdatedId }}>
             {children}
         </UserContext.Provider>
     );
