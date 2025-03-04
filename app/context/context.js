@@ -14,8 +14,6 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         async function fetchData() {
             const { data, error } = await supabase.auth.getSession()
-            // console.log(data);
-
             if (data && data.session) {
                 setUser(data.session.user)
                 const plan = await fetchPersonalizedPlanOfUserFromsupabase(data.session.user.id)
