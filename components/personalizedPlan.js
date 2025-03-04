@@ -17,6 +17,7 @@ const PersonalizedPlan = () => {
         const patinet_age = personalizedPlan?.[0]?.patient_age_year + " " + "years " + "and" + personalizedPlan?.[0]?.patient_age_months + " months"
         e.preventDefault();
         personalizedPlan[0].challenges = challenges
+        personalizedPlan[0].goals = goals
         const data = await GetPdfData();
         const file = new File([data], "ebook.pdf", { type: "application/pdf" });
         const formData = new FormData();
