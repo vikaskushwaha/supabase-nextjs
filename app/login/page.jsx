@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import { loginWithPassword, signup } from './actions'
 import { useState, useEffect } from "react";
 import { useUser } from "../context/context";
-
+import Image from "next/image";
+import loginImage from "../../public/resources/images/signupImg.svg";
 export default function SignUp() {
     const router = useRouter()
     const [email, setEmail] = useState("");
@@ -33,64 +34,273 @@ export default function SignUp() {
     };
 
     return (
-        <div className="max-w-md mx-auto p-6">
-            <form onSubmit={loginState ? handleLogIn : handleSignUpWithEmailPassword}>
-                {!loginState && (<div className="mb-4">
-                    <label className="block text-sm font-semibold">Full Name</label>
-                    <input
-                        type="text"
-                        placeholder="Enter your name"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        className="w-full px-4 py-2 border rounded-md"
-                    />
-                </div>)}
-                <div className="mb-4">
-                    <label className="block text-sm font-semibold">Email</label>
-                    <input
-                        type="email"
-                        placeholder="Enter your email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-2 border rounded-md"
+        // <div className="flex items-center justify-center bg-[#f8f9ff] w-full">
+        //     <div className="w-full  bg-[#f8f9ff] rounded-lg shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-2 h-[80vh]">
+        //         {/* Left Side (Form) */}
+        //         <div className=" flex flex-col py-10  items-center ">
+        //             <div className="flex flex-col gap-y-4">
+        //                 <h1 className="text-3xl font-bold text-gray-900 tracking-wider">Patient Login</h1>
+        //                 <p className="text-gray-600 mt-2 treaking-wide">
+        //                     Best personalized care. Powered by the best healthcare providers.
+        //                 </p>
+
+        //                 <form onSubmit={handleLogIn} className="mt-16  flex flex-col gap-y-4">
+        //                     <div className="">
+        //                         <label className="block text-gray-700">Email</label>
+        //                         <input
+        //                             type="email"
+        //                             placeholder="Enter your email"
+        //                             value={email}
+        //                             onChange={(e) => setEmail(e.target.value)}
+        //                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-1"
+        //                             required
+        //                         />
+        //                     </div>
+
+        //                     <div className="">
+        //                         <label className="block text-gray-700">Password</label>
+        //                         <input
+        //                             type="password"
+        //                             placeholder="********"
+        //                             value={password}
+        //                             onChange={(e) => setPassword(e.target.value)}
+        //                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-1"
+        //                             required
+        //                         />
+        //                     </div>
+        //                     <div className="mt-12 flex flex-col">
+        //                         <button
+        //                             type="submit"
+        //                             className="w-[200px]  bg-blue-600 hover:bg-blue-700 text-white font-semibold p-3 rounded-lg items-start"
+        //                         >
+        //                             <p>Login</p>
+        //                         </button>
+
+        //                         <p className="mt-4 text-blue-600 text-sm cursor-pointer hover:underline">
+        //                             Forgot password?
+        //                         </p>
+        //                     </div>
+
+
+
+        //                 </form>
+        //             </div>
+
+        //         </div>
+
+        //         {/* Right Side (Image) */}
+        //         <div className="hidden md:flex relative px-8">
+        //             <Image
+        //                 src={loginImage} // Change this to your actual image path
+        //                 alt="Login Illustration"
+        //                 layout="fill"
+        //                 objectFit="cover"
+        //                 className="rounded-r-lg"
+        //             />
+        //         </div>
+        //     </div>
+        // </div>
+
+        // <div className="flex items-center justify-center bg-[#f8f9ff] w-full h-full">
+        //     <div className="w-full h-full  bg-[#f8f9ff] rounded-lg shadow-lg overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+        //         {/* Left Side (Form) */}
+        //         <div className="flex flex-col py-10  md:px-10 items-center justify-center">
+        //             {/* Heading and Description - Stay at the top */}
+        //             <div className="w-full max-w-md">
+        //                 <h1 className="text-3xl font-bold text-gray-900 tracking-wider">Patient Login</h1>
+        //                 <p className="text-gray-600 mt-2 tracking-wide ">
+        //                     Best personalized care. Powered by the best healthcare providers.
+        //                 </p>
+        //             </div>
+
+        //             {/* Form Container - Centered vertically */}
+        //             <div className="flex flex-col justify-center h-full w-full max-w-md">
+        //                 <form onSubmit={handleLogIn} className="flex flex-col gap-y-4 w-full">
+        //                     <div>
+        //                         <label className="block text-gray-700">Email</label>
+        //                         <input
+        //                             type="email"
+        //                             placeholder="Enter your email"
+        //                             value={email}
+        //                             onChange={(e) => setEmail(e.target.value)}
+        //                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-1"
+        //                             required
+        //                         />
+        //                     </div>
+
+        //                     <div>
+        //                         <label className="block text-gray-700">Password</label>
+        //                         <input
+        //                             type="password"
+        //                             placeholder="********"
+        //                             value={password}
+        //                             onChange={(e) => setPassword(e.target.value)}
+        //                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-1"
+        //                             required
+        //                         />
+        //                     </div>
+        //                     <div className="mt-8 flex flex-col">
+        //                         <button
+        //                             type="submit"
+        //                             className="w-full md:w-[200px] bg-blue-600 hover:bg-blue-700 text-white font-semibold p-3 rounded-lg"
+        //                         >
+        //                             <p>Login</p>
+        //                         </button>
+
+        //                         <p className="mt-4 text-blue-600 text-sm cursor-pointer hover:underline ">
+        //                             Forgot password?
+        //                         </p>
+        //                     </div>
+        //                 </form>
+        //             </div>
+        //         </div>
+
+        //         {/* Right Side (Image) - Hidden on tablet, visible on desktop */}
+        //         <div className="hidden lg:block relative   h-[600px]">
+        //             <Image
+        //                 src={loginImage} // Change this to your actual image path
+        //                 alt="Login Illustration"
+        //                 layout="fill"
+        //                 objectFit="cover"
+        //                 className="rounded-r-lg"
+        //             />
+        //         </div>
+        //     </div>
+        // </div>
+
+        // <div className="flex items-center justify-center bg-[#f8f9ff] w-full h-full">
+        //     <div className="w-full h-full  bg-[#f8f9ff] rounded-lg shadow-lg overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+        //         {/* Left Side (Form) */}
+        //         <div className="flex flex-col py-10  md:px-10 items-center justify-center ">
+        //             {/* Heading and Description - Stay at the top */}
+        //             <div className="w-full max-w-md">
+        //                 <h1 className="text-3xl font-bold text-gray-900 tracking-wider">Patient Login</h1>
+        //                 <p className="text-gray-600 mt-2 tracking-wide ">
+        //                     Best personalized care. Powered by the best healthcare providers.
+        //                 </p>
+        //             </div>
+
+        //             {/* Form Container - Centered vertically */}
+        //             <div className="flex flex-col justify-center h-full w-full max-w-md">
+        //                 <form onSubmit={handleLogIn} className="flex flex-col gap-y-4 w-full">
+        //                     <div>
+        //                         <label className="block text-gray-700">Email</label>
+        //                         <input
+        //                             type="email"
+        //                             placeholder="Enter your email"
+        //                             value={email}
+        //                             onChange={(e) => setEmail(e.target.value)}
+        //                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-1"
+        //                             required
+        //                         />
+        //                     </div>
+
+        //                     <div>
+        //                         <label className="block text-gray-700">Password</label>
+        //                         <input
+        //                             type="password"
+        //                             placeholder="********"
+        //                             value={password}
+        //                             onChange={(e) => setPassword(e.target.value)}
+        //                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-1"
+        //                             required
+        //                         />
+        //                     </div>
+        //                     <div className="mt-8 flex flex-col">
+        //                         <button
+        //                             type="submit"
+        //                             className="w-full md:w-[200px] bg-blue-600 hover:bg-blue-700 text-white font-semibold p-3 rounded-lg"
+        //                         >
+        //                             <p>Login</p>
+        //                         </button>
+
+        //                         <p className="mt-4 text-blue-600 text-sm cursor-pointer hover:underline ">
+        //                             Forgot password?
+        //                         </p>
+        //                     </div>
+        //                 </form>
+        //             </div>
+        //         </div>
+
+        //         {/* Right Side (Image) - Hidden on tablet, visible on desktop */}
+        //         <div className="hidden lg:block relative   h-[600px]">
+        //             <Image
+        //                 src={loginImage} // Change this to your actual image path
+        //                 alt="Login Illustration"
+        //                 layout="fill"
+        //                 objectFit="cover"
+        //                 className="rounded-r-lg"
+        //             />
+        //         </div>
+        //     </div>
+        // </div>
+        <div className="flex items-center justify-center bg-[#f8f9ff] w-full h-full">
+            <div className="w-full h-full bg-[#f8f9ff] rounded-lg shadow-lg overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+                {/* Left Side (Form) */}
+                <div className="flex flex-col py-10 px-4 md:px-10 items-center justify-center"> {/* Added px-4 for smaller screens */}
+                    {/* Heading and Description - Stay at the top */}
+                    <div className="w-full max-w-md mx-auto lg:mx-0"> {/* Centered on small screens, left-aligned on larger screens */}
+                        <h1 className="text-3xl font-bold text-gray-900 tracking-wider">Patient Login</h1>
+                        <p className="text-gray-600 mt-2 tracking-wide">
+                            Best personalized care. Powered by the best healthcare providers.
+                        </p>
+                    </div>
+
+                    {/* Form Container - Centered vertically */}
+                    <div className="flex flex-col justify-center h-full w-full max-w-md mx-auto lg:mx-0"> {/* Centered on small screens, left-aligned on larger screens */}
+                        <form onSubmit={handleLogIn} className="flex flex-col gap-y-4 w-full">
+                            <div>
+                                <label className="block text-gray-700">Email</label>
+                                <input
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-1"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-gray-700">Password</label>
+                                <input
+                                    type="password"
+                                    placeholder="********"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-1"
+                                    required
+                                />
+                            </div>
+                            <div className="mt-8 flex flex-col">
+                                <button
+                                    type="submit"
+                                    className="w-full md:w-[200px] bg-blue-600 hover:bg-blue-700 text-white font-semibold p-3 rounded-lg"
+                                >
+                                    <p>Login</p>
+                                </button>
+
+                                <p className="mt-4 text-blue-600 text-sm cursor-pointer hover:underline">
+                                    Forgot password?
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                {/* Right Side (Image) - Hidden on tablet, visible on desktop */}
+                <div className="hidden lg:block relative h-[600px]">
+                    <Image
+                        src={loginImage} // Change this to your actual image path
+                        alt="Login Illustration"
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-r-lg"
                     />
                 </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-semibold">Password</label>
-                    <input
-                        type="password"
-                        placeholder="Enter your password (Minimum lenght 6)"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="w-full px-4 py-2 border rounded-md"
-                    />
-                </div>
+            </div>
+        </div>
 
-                <button
-                    type="submit"
-
-                    className="w-full bg-blue-500 text-white py-2 rounded-md"
-                >
-                    <p>{login ? "LogIn" : "Signup"} </p>
-                </button>
-
-            </form>
-
-            {/* <div className="mt-4 text-center">
-                <button
-                    onClick={handleGoogleSignUp}
-                    className="w-full bg-red-500 text-white py-2 rounded-md"
-                >
-                    Sign Up with Google
-                </button>
-            </div> */}
-            {login && (<div className="mt-4 text-center">
-                <div onClick={() => setLoginState(false)}>Create an Account</div>
-            </div>)
-            }
-
-
-        </div >
     );
 }
 
