@@ -41,12 +41,12 @@ import { useRouter } from "next/navigation";
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { logOut, user } = useUser();
-    if (user) {
-        console.log(user.id);
+    // if (user) {
+    //     console.log(user.id);
 
-    }
+    // }
     const router = useRouter();
-    console.log(user);
+    // console.log(user);
     const handlLogout = async () => {
         await logOut();
         router.push('/login')

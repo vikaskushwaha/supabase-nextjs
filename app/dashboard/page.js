@@ -11,7 +11,7 @@ import { DisplayPersonalizePlan } from "@/components/displayPersonalizePlan";
 
 const Home = () => {
     const { personalizedPlan } = useUser();
-    console.log("personalizeplan", personalizedPlan);
+    // console.log("personalizeplan", personalizedPlan);
     let type;
     let name;
     if (personalizedPlan) {
@@ -56,7 +56,7 @@ const Home = () => {
                     />
                 </div>
 
-                {type === "consultation" || type === "Patient Updated" ? (
+                {type === "consultation" || type === "Patient Updated" || type === "Provider review" ? (
                     <DisplayPersonalizePlan />
 
                 ) : (

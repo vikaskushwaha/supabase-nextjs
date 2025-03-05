@@ -6,12 +6,28 @@ import { useEffect, useState } from "react";
 import { GetPdfData } from "@/hooks/fetchPdfFromsupabase";
 import axios from "axios";
 import { UpdatedPersonalizePlanSupabase } from "@/hooks/updatedPersonalizePlanInSupabse";
+import { ShareYourFeedToProvider } from "@/hooks/shareYourProvieder";
 export const DisplayPersonalizePlan = () => {
     const [feedback, setFeedBack] = useState("")
     const { personalizedPlan, setUpdatedId } = useUser();
     const pdfUrl = personalizedPlan?.[0]?.hcare_resource_file || ""
     const fixUrl = (url) => (url.startsWith("//") ? `https:${url}` : url);
     const fixedUrl = fixUrl(pdfUrl)
+
+
+    const handleSarewithMyProvider = async () => {
+        if (personalizedPlan) {
+            personalizedPlan[0].patient_notes = feedback;
+            const IdOfNewPlan = await ShareYourFeedToProvider(personalizedPlan[0])
+            console.log("IdOfNewPlan", IdOfNewPlan);
+
+            if (IdOfNewPlan) {
+                setUpdatedId(IdOfNewPlan)
+                alert("Plan successfully submitted for provider review!");
+            }
+
+        }
+    }
 
     const updatePlan = async () => {
         const challenges = personalizedPlan?.[0]?.challenges
@@ -36,6 +52,7 @@ Put a delimiter [#]  before each section's bbcode.\n Each task, reminder, or che
         if (IdOfNewPlan) {
 
             setUpdatedId(IdOfNewPlan)
+            setFeedBack("")
         }
     }
 
@@ -43,6 +60,7 @@ Put a delimiter [#]  before each section's bbcode.\n Each task, reminder, or che
 
         <div className="p-6 bg-[#f0fdf0]">
             <div className="flex flex-col gap-y-6">
+                {/* <h1>{personalizedPlan[0].plan_number}</h1> */}
                 <h5>Patient Challenges</h5>
                 <div className="">
                     <PatientChallenges />
@@ -59,7 +77,7 @@ Put a delimiter [#]  before each section's bbcode.\n Each task, reminder, or che
                     onChange={(e) => setFeedBack(e.target.value)}
                 />
                 <div className="flex flex-row justify-between">
-                    <button className="bg-green-600 rounded-md">
+                    <button className="bg-green-600 rounded-md" onClick={handleSarewithMyProvider}>
                         <p className="p-4">Share with my provider</p>
                     </button>
 
