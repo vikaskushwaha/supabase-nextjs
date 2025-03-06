@@ -7,12 +7,13 @@ import { GetPdfData } from "@/hooks/fetchPdfFromsupabase";
 import axios from "axios";
 import { UpdatedPersonalizePlanSupabase } from "@/hooks/updatedPersonalizePlanInSupabse";
 import { ShareYourFeedToProvider } from "@/hooks/shareYourProvieder";
-export const DisplayPersonalizePlan = () => {
+export const DisplayPersonalizePlan = ({ setLoading }) => {
     const [feedback, setFeedBack] = useState("")
     const { personalizedPlan, setUpdatedId } = useUser();
     const pdfUrl = personalizedPlan?.[0]?.hcare_resource_file || ""
     const fixUrl = (url) => (url.startsWith("//") ? `https:${url}` : url);
     const fixedUrl = fixUrl(pdfUrl)
+
 
 
     const handleSarewithMyProvider = async () => {
@@ -41,24 +42,33 @@ export const DisplayPersonalizePlan = () => {
         formData.append("instruction", `Follow each instruction 100% precisely \n Starting with the previous_day's_plan, patient feedback, patient challenges, and goals shared below:
 First, create a personalized list of tasks, reminders, and checklists for today for the patient's following challenges and goals \n Organize each task, reminder, or checklist item in a group under a section heading with bolded bbcode. 
 Put a delimiter [#]  before each section's bbcode.\n Each task, reminder, or checklist item must be a few words, personalized for personal connection, and start with a delimiter [*].\n challenges: ${challenges}. goals :${goals} Minimize interactionsprevious_day's_plan: ${personalized_plan}\n Follow these tailored steps to help ${personalizedPlan?.[0]?.name} gradually adjust and promote better sleep habits! patient_feedback: ${feedback}\nIf the patient_feedback is not empty and only If the patient_feedback is consistent with the rest of the details, address it directly through the tasks and reminders. Otherwise, just output the previous_day's_plan again`)
-        const response = await axios.post('/api/proxy', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            }
-        });
-        const new_plan = response.data.response
-        personalizedPlan[0].patient_notes = feedback
-        const IdOfNewPlan = await UpdatedPersonalizePlanSupabase(personalizedPlan[0], new_plan)
-        if (IdOfNewPlan) {
 
-            setUpdatedId(IdOfNewPlan)
-            setFeedBack("")
+        try {
+            setLoading(true)
+            const response = await axios.post('/api/proxy', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            });
+            const new_plan = response.data.response
+            personalizedPlan[0].patient_notes = feedback
+            const IdOfNewPlan = await UpdatedPersonalizePlanSupabase(personalizedPlan[0], new_plan)
+            if (IdOfNewPlan) {
+
+                setUpdatedId(IdOfNewPlan)
+                setFeedBack("")
+            }
+        } catch (error) {
+            console.log("error from ragApi call", error)
+            throw error
+        } finally {
+            setLoading(false)
         }
+
     }
 
     return (
-
-        <div className="p-6 bg-[#f0fdf0]">
+        <div className="p-6 bg-[#f0fdf0]" >
             <div className="flex flex-col gap-y-6">
                 {/* <h1>{personalizedPlan[0].plan_number}</h1> */}
                 <h5>Patient Challenges</h5>

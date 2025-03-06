@@ -5,11 +5,14 @@ import Cards from "@/components/cards";
 import GoalsAndChallenges from "@/components/golsAndChallenge";
 import PersonalizedPlan from "@/components/personalizedPlan";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "../context/context";
 import { DisplayPersonalizePlan } from "@/components/displayPersonalizePlan";
+import { LoaderScreen } from "@/components/loaderScreen";
 
 const Home = () => {
+    const [loading, setLoading] = useState(false)
+
     const { personalizedPlan } = useUser();
     // console.log("personalizeplan", personalizedPlan);
     let type;
@@ -22,7 +25,14 @@ const Home = () => {
     }
 
     return (
-        <div className="w-full">
+
+        <div className="w-full relative">
+            {loading && (
+                <div className="fixed inset-0 flex flex-col items-center justify-center w-full h-full bg-white bg-opacity-40 z-50">
+                    <LoaderScreen />
+                    <h1 className="text-lg text-black font-semibold tracking-wider ">Creating New Plan </h1>
+                </div>
+            )}
             <div className="flex flex-col my-6 mx-4 md:mx-10 gap-y-8 py-6">
                 <div className="flex flex-col gap-y-3 mb-6">
                     <div className="flex justify-start">
@@ -57,7 +67,7 @@ const Home = () => {
                 </div>
 
                 {type === "consultation" || type === "Patient Updated" || type === "Provider review" ? (
-                    <DisplayPersonalizePlan />
+                    <DisplayPersonalizePlan setLoading={setLoading} />
 
                 ) : (
                     <PersonalizedPlan />
@@ -66,6 +76,7 @@ const Home = () => {
 
             </div>
         </div>
+
     );
 };
 
