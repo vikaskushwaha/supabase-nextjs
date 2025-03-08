@@ -24,6 +24,10 @@ const Home = () => {
         name = personalizedPlan[0].patient_name
     }
 
+    const handleMyProvider = () => {
+        console.log('hi from my provider ');
+
+    }
     return (
 
         <div className="w-full relative">
@@ -63,6 +67,7 @@ const Home = () => {
                         heading="My Providers"
                         title="Go To Your Expert Team"
                         bgColor="bg-blue-100"
+                        onClick={handleMyProvider}
                     />
                 </div>
 

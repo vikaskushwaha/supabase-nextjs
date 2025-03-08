@@ -1,7 +1,7 @@
 
-const Cards = ({ heading, bgColor, title, subtitle }) => {
+const Cards = ({ heading, bgColor, title, subtitle, onClick }) => {
     return (
-        <div className={`py-6 px-4 rounded-lg shadow-md flex flex-col align-middle justify-center gap-y-6 ${bgColor}`}>
+        <div className={`py-6 px-4 rounded-lg shadow-md flex flex-col align-middle justify-center gap-y-6 ${bgColor}`} onClick={onClick}>
             <div>
                 <p className="font-normal text-sm">{heading}</p>
             </div>
