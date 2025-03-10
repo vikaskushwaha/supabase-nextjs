@@ -9,10 +9,11 @@ import { useEffect, useState } from "react";
 import { useUser } from "../context/context";
 import { DisplayPersonalizePlan } from "@/components/displayPersonalizePlan";
 import { LoaderScreen } from "@/components/loaderScreen";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
     const [loading, setLoading] = useState(false)
-
+    const router = useRouter();
     const { personalizedPlan } = useUser();
     // console.log("personalizeplan", personalizedPlan);
     let type;
@@ -25,8 +26,9 @@ const Home = () => {
     }
 
     const handleMyProvider = () => {
-        console.log('hi from my provider ');
 
+        console.log('hi from my provider ');
+        router.push('/dashboard/providersInfo')
     }
     return (
 
