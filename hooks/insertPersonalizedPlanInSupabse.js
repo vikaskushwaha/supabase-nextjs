@@ -1,6 +1,6 @@
 import { createClient } from '@/utils/supabse/server'
 
-const searchAndInsertInsupabsePersonalizedPlan = async (_id, email, personalizedPlan) => {
+const searchAndInsertInsupabsePersonalizedPlan = async (uniqueId, email, personalizedPlan) => {
     // console.log("from search ", personalizedPlan)
     const supabase = await createClient()
     const plans = personalizedPlan.filter(personalizedPlan => personalizedPlan.patient_email === email)
@@ -31,8 +31,8 @@ const searchAndInsertInsupabsePersonalizedPlan = async (_id, email, personalized
         medical_device_data: plan.medical_device_data || null,
         patient_notes: plan.patient_notes || null,
         personalized_plan: plan["personalized plan"] || null,
-        provider: plan.provider || null,
-        patient_id: _id,
+        provider_email: plan.provider.email || null,
+        patient_id: uniqueId,
         patient_age_months: plan.patient_age_months || null,
         type: plan.type || null
 

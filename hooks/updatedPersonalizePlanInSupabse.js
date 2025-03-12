@@ -4,7 +4,7 @@ export const UpdatedPersonalizePlanSupabase = async (pervious_plan, newPersonali
     const supabase = await createClient();
     try {
         const { id, ...updatedPlan } = pervious_plan;
-        // console.log("previousPlanswith uupdate_plan ", updatedPlan);
+
         updatedPlan.plan_number = updatedPlan.plan_number + 1;
         updatedPlan.personalized_plan = newPersonalizedPlan;
         updatedPlan.type = "Patient Updated"

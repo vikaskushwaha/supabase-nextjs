@@ -10,8 +10,6 @@ import fetchPersonalizedPlanOfUser from '@/hooks/personalizePlanofPatientFroBubb
 
 export async function signup(fullName, email, password) {
     const supabase = await createClient()
-
-
     const patientInfo = await VerifyAndGetDataFromBubble(email)
     console.log(patientInfo.response.count);
     if (patientInfo && patientInfo.response.count > 0) {

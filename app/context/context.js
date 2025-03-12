@@ -19,7 +19,7 @@ export const UserProvider = ({ children }) => {
                 const plan = await fetchPersonalizedPlanOfUserFromsupabase(data.session.user.id)
                 if (plan) {
                     setPersonalizedPlan(plan)
-                    // setUpdatedId(plan.id)
+
                 }
             }
         }

@@ -11,7 +11,7 @@ const InsertPatientInfoInSupabase = async (patientId, patientInfo) => {
             Modified_Date: patient["Modified Date"],
             Created_Date: patient["Created Date"],
             Created_By: patient["Created By"],
-            age: patient.age,
+            age: patient["age-years"],
             provider: patient.provider,
             email: patient.email,
             name: patient.name,
@@ -21,7 +21,9 @@ const InsertPatientInfoInSupabase = async (patientId, patientInfo) => {
             gender: patient.gender,
             image: patient.image,
             status: patient.status,
-            _id: patient._id
+            _id: patient._id,
+            age_months: patient["age-months"],
+            engagement_type: patient.engagement_type
         }));
         const { data, error } = await supabase
             .from('Patient_info')

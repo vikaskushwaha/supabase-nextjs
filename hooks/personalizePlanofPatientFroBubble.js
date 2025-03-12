@@ -9,7 +9,8 @@ export async function fetchPersonalizedPlanOfUser(patient_idFromBubble, email) {
             "https://early-invite-q324.vybri.ai/version-test/api/1.1/obj/Personalized Plans",
             {
                 headers: {
-                    Authorization: `Bearer 0e7dfb1050c9dffb8861016fa1e4aaaa`,
+
+                    Authorization: `Bearer ${process.env.NEXT_PUBLIC_BUBBLE_API_KEY}`,
                 },
             }
         );

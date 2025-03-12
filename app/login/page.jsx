@@ -91,7 +91,7 @@ export default function SignUp() {
                 {/* Right Side (Image) - Hidden on tablet, visible on desktop */}
                 <div className="hidden lg:block relative h-[600px]">
                     <Image
-                        src={loginImage} // Change this to your actual image path
+                        src={loginImage}
                         alt="Login Illustration"
                         layout="fill"
                         objectFit="cover"

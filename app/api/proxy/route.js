@@ -27,7 +27,8 @@ export async function POST(req) {
         const response = await axios.post("https://api.vybri.work/llm_chat_with_file/", formData, {
             headers: {
                 // ...formData.getHeaders(),
-                "api-key": "VybriR0cks",
+
+                "api-key": process.env.NEXT_PUBLIC_VYBRI_API_KEY,
             },
         });
 

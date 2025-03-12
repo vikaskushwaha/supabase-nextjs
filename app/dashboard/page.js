@@ -27,7 +27,6 @@ const Home = () => {
 
     const handleMyProvider = () => {
 
-        console.log('hi from my provider ');
         router.push('/dashboard/providersInfo')
     }
     return (
