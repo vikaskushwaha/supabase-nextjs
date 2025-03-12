@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const ProviderInfoData = (providerId) => {
-    const [providerInfo, setProviderInfo] = useState("");
+    const [providerInfo, setProviderInfo] = useState([]);
     useEffect(() => {
         async function fetch() {
             const res = await axios.get('https://early-invite-q324.vybri.ai/api/1.1/obj/Provider Info',

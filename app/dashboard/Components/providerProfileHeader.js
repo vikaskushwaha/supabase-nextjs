@@ -9,10 +9,10 @@ import ProviderInfoData from "@/hooks/fetchProviderInfoBubble";
 import { getValidImageUrl } from "@/utils/client/imageUrlProcess";
 
 
-export default function ProfileHeader() {
-    const { user } = useUser();
-    const providerId = useProviderId(user?.id);
-    const providerData = ProviderInfoData(providerId)
+export default function ProfileHeader({ infoData }) {
+    // const { user } = useUser();
+    // const providerId = useProviderId(user?.id);
+    // const providerData = ProviderInfoData(providerId)
 
     return (
         <div className="w-full border-2 rounded-lg bg-white overflow-hidden relative">
@@ -20,16 +20,16 @@ export default function ProfileHeader() {
             <div className="relative flex flex-col md:flex-row items-center md:items-start p-6 space-y-4 md:space-y-0 md:space-x-6">
                 <div className="flex flex-col items-center z-10 md:w-1/3">
                     <Image
-                        src={getValidImageUrl(providerData[0]?.image)}
+                        src={getValidImageUrl(infoData[0]?.image)}
                         width={144}
                         height={144}
                         className="h-36 w-36 rounded-full border-4 border-white"
                         alt="Provider"
                     />
-                    <h2 className="text-xl font-bold mt-3 text-center">{providerData[0]?.name}</h2>
-                    <p className="text-gray-600 text-center">{providerData[0]?.title}</p>
+                    <h2 className="text-xl font-bold mt-3 text-center">{infoData[0]?.name}</h2>
+                    <p className="text-gray-600 text-center">{infoData[0]?.title}</p>
                     <p className="text-gray-500 italic text-sm text-center">
-                        {providerData[0]?.certifications}
+                        {infoData[0]?.certifications}
                     </p>
                 </div>
 

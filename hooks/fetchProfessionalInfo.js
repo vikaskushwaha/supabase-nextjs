@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 const ProfessionalInfo = (providerId) => {
     const [professionalInfo, setProfessionalInfo] = useState("");
     useEffect(() => {
+        if (!providerId) return;
         async function fetch() {
             const res = await axios.get('https://early-invite-q324.vybri.ai/api/1.1/obj/Professional profile',
                 {

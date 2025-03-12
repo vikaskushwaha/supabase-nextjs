@@ -1,10 +1,14 @@
 'use client'
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { getValidImageUrl } from "@/utils/client/imageUrlProcess";
 const ProviderOffering = ({ offering }) => {
+    const router = useRouter();
     const [openIndex, setOpenIndex] = useState(null);
-
+    const handleClick = () => {
+        router.push("/dashboard")
+    }
     const toggleAccordion = (index) => {
         setOpenIndex(openIndex === index ? null : index);
     };
@@ -37,7 +41,7 @@ const ProviderOffering = ({ offering }) => {
                             <p className="text-gray-700">{item.description}</p>
                             <div className="flex justify-between items-center mt-3">
                                 <p className="font-semibold text-green-600">${item.price}</p>
-                                <button className="px-4 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                                <button className="px-4 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={handleClick}>
                                     Buy
                                 </button>
                             </div>

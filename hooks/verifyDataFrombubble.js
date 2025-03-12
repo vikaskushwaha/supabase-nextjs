@@ -35,7 +35,7 @@ export default async function verifyAndGetDataFromBubble(email) {
         ]);
 
         const response = await fetch(
-            `https://early-invite-q324.vybri.ai/version-test/api/1.1/obj/Patient info?constraints=${encodeURIComponent(constraints)}`,
+            `https://early-invite-q324.vybri.ai/api/1.1/obj/Patient info?constraints=${encodeURIComponent(constraints)}`,
             {
                 method: 'GET',
                 headers: {

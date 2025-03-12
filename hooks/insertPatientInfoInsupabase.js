@@ -11,7 +11,7 @@ const InsertPatientInfoInSupabase = async (patientId, patientInfo) => {
             Modified_Date: patient["Modified Date"],
             Created_Date: patient["Created Date"],
             Created_By: patient["Created By"],
-            age: patient["age-years"],
+            age_years: patient["age-years"],
             provider: patient.provider,
             email: patient.email,
             name: patient.name,

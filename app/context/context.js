@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { createClient } from "@/utils/supabse/client";
 import { loginWithPassword } from "../login/actions";
+import { signupWithPassword } from "../signup/action";
 import fetchPersonalizedPlanOfUser from "@/hooks/personalizePlanofPatientFroBubble";
 import fetchPersonalizedPlanOfUserFromsupabase from "@/hooks/fetchcurrentPersonalizedPlanFormSupabse";
 const UserContext = createContext();
@@ -46,6 +47,29 @@ export const UserProvider = ({ children }) => {
             return { error };
         }
     };
+
+    const signup = async (email, password) => {
+        try {
+            const res = await signupWithPassword(email, password)
+            if (res.user) {
+                console.log(user);
+
+                setUser(res.user);
+            }
+            if (res.user.id) {
+                const plan = await fetchPersonalizedPlanOfUserFromsupabase(res.user.id);
+                if (plan) {
+                    setPersonalizedPlan(plan);
+                    console.log("plan has been set");
+
+                }
+            }
+
+        } catch (error) {
+            console.error("signupFailed", error);
+            return { error };
+        }
+    }
     const logOut = async () => {
         const res = await supabase.auth.signOut();
         setPersonalizedPlan(null)
@@ -56,7 +80,7 @@ export const UserProvider = ({ children }) => {
     }
 
     return (
-        <UserContext.Provider value={{ user, login, personalizedPlan, updatedId, setUpdatedId, logOut }}>
+        <UserContext.Provider value={{ user, login, personalizedPlan, updatedId, setUpdatedId, logOut, signup }}>
             {children}
         </UserContext.Provider>
     );

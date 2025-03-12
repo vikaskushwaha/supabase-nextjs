@@ -9,6 +9,7 @@ const ProvidersBlog = (providerId) => {
 
 
     useEffect(() => {
+        if (!providerId) return;
         async function fetch() {
             const res = await axios.get('https://early-invite-q324.vybri.ai/api/1.1/obj/blogs',
                 {

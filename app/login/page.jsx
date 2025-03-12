@@ -1,6 +1,6 @@
 
 "use client"
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { loginWithPassword, signup } from './actions'
 import { useState, useEffect } from "react";
 import { useUser } from "../context/context";
@@ -13,6 +13,8 @@ export default function SignUp() {
     const [fullName, setFullName] = useState("");
     const [loginState, setLoginState] = useState(true);
     const { login, personalizedPlan } = useUser()
+    const [signups, setSignups] = useState(false);
+
     const handleLogIn = async (e) => {
         e.preventDefault();
         const user = await login(email, password)
@@ -27,13 +29,13 @@ export default function SignUp() {
     }, [personalizedPlan]);
 
     const handleSignUpWithEmailPassword = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
 
-        await signup(fullName, email, password)
-        console.log("signup");
+        // await signup(fullName, email, password)
+        // console.log("signup");
+        redirect('/signup')
     };
     return (
-
         <div className="flex items-center justify-center bg-[#f8f9ff] w-full h-full">
             <div className="w-full h-full bg-[#f8f9ff] rounded-lg shadow-lg overflow-hidden grid grid-cols-1 lg:grid-cols-2">
 
@@ -83,12 +85,14 @@ export default function SignUp() {
                                 <p className="mt-4 text-blue-600 text-sm cursor-pointer hover:underline">
                                     Forgot password?
                                 </p>
+                                <p className="mt-4 text-blue-600 text-sm cursor-pointer hover:underline " onClick={handleSignUpWithEmailPassword}>
+                                    Click here to sign up
+                                </p>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                {/* Right Side (Image) - Hidden on tablet, visible on desktop */}
                 <div className="hidden lg:block relative h-[600px]">
                     <Image
                         src={loginImage}

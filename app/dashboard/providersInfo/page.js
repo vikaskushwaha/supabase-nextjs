@@ -11,6 +11,7 @@ import { useUser } from "@/app/context/context";
 import useProviderId from "@/hooks/fetchPatientInfoFromsupabae";
 import ProfessionalInfo from "@/hooks/fetchProfessionalInfo";
 import ProvidersBlog from "@/hooks/blogsOfProvider";
+import ProviderInfoData from "@/hooks/fetchProviderInfoBubble";
 // const ProviderInfo = () => {
 
 //     const { user } = useUser();
@@ -49,13 +50,11 @@ import ProvidersBlog from "@/hooks/blogsOfProvider";
 
 // export default ProviderInfo;
 
-
-
-
-
 const ProviderInfo = () => {
     const { user } = useUser();
     const providerId = useProviderId(user?.id);
+    const providerData = ProviderInfoData(providerId)
+    const infoData = providerData || []
     const professionalInfo = ProfessionalInfo(providerId);
     const rawText = professionalInfo?.[4]?.aboutme || "";
     const offering = ProviderServicesOffering(providerId)
@@ -63,14 +62,10 @@ const ProviderInfo = () => {
     const seoKeywordsString = Array.isArray(helpwith) ? helpwith.join("\n") : "";
     const blog = ProvidersBlog(providerId);
     const allBlog = blog || [];
-
-
-    // console.log("helpwith", seoKeywordsString); // Debugging output
-
     return (
         <div className="w-full bg-[#f0fdf0] flex flex-col gap-y-4 px-4 sm:px-8 md:px-6 lg:px-32">
             <div className="w-full py-6">
-                <ProfileHeader />
+                <ProfileHeader infoData={infoData} />
             </div>
 
             <div className="flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-x-4">

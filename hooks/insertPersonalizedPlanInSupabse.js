@@ -1,9 +1,10 @@
 import { createClient } from '@/utils/supabse/server'
 
 const searchAndInsertInsupabsePersonalizedPlan = async (uniqueId, email, personalizedPlan) => {
-    // console.log("from search ", personalizedPlan)
+
     const supabase = await createClient()
     const plans = personalizedPlan.filter(personalizedPlan => personalizedPlan.patient_email === email)
+
 
     if (plans.length === 0) {
         console.log("No plans found for this email.");
@@ -31,13 +32,17 @@ const searchAndInsertInsupabsePersonalizedPlan = async (uniqueId, email, persona
         medical_device_data: plan.medical_device_data || null,
         patient_notes: plan.patient_notes || null,
         personalized_plan: plan["personalized plan"] || null,
-        provider_email: plan.provider.email || null,
+        provider_email: plan.provider_email || null,
         patient_id: uniqueId,
         patient_age_months: plan.patient_age_months || null,
         type: plan.type || null
 
     }));
+    // console.log("************", formattedPlans);
+
     const { data, error } = await supabase.from('Personalized_Plans').insert(formattedPlans);
+    console.log("***************", data);
+
     if (error) {
         console.error("Error inserting multiple plans:", error);
     } else {

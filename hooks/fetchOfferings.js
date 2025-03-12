@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 const ProviderServicesOffering = (providerId) => {
     const [offering, setOffering] = useState("");
     useEffect(() => {
+        if (!providerId) return;
         async function fetch() {
             const res = await axios.get('https://early-invite-q324.vybri.ai/api/1.1/obj/offering',
                 {

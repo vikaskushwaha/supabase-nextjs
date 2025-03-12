@@ -6,8 +6,10 @@ import VerifyAndGetDataFromBubble from '@/hooks/verifyDataFrombubble'
 import InsertPatientInfoInSupabase from '@/hooks/insertPatientInfoInsupabase'
 import fetchPersonalizedPlanOfUser from '@/hooks/personalizePlanofPatientFroBubble'
 
-export async function signup(fullName, email, password) {
+export async function signupWithPassword(email, password) {
     const supabase = await createClient()
+    console.log("''hI form signup");
+
     const patientInfo = await VerifyAndGetDataFromBubble(email)
     console.log(patientInfo.response.count);
     if (patientInfo && patientInfo.response.count > 0) {
@@ -22,22 +24,7 @@ export async function signup(fullName, email, password) {
         const patient_idFromBubble = patientInfo.response.results[0]._id
         await InsertPatientInfoInSupabase(patientId, patientInfo)
         await fetchPersonalizedPlanOfUser(patient_idFromBubble, email)
-        revalidatePath('/', 'layout')
-        return redirect('/dashboard')
+        return data;
     }
 
-}
-
-export async function loginWithPassword(email, password) {
-    const supabase = await createClient()
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-    })
-
-    if (error) {
-        redirect('/')
-    }
-    return data
 }
