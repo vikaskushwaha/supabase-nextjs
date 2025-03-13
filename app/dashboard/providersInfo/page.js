@@ -52,6 +52,8 @@ import ProviderInfoData from "@/hooks/fetchProviderInfoBubble";
 
 const ProviderInfo = () => {
     const { user } = useUser();
+    const userId = user?.id
+
     const providerId = useProviderId(user?.id);
     const providerData = ProviderInfoData(providerId)
     const infoData = providerData || []
@@ -74,7 +76,7 @@ const ProviderInfo = () => {
 
                 </div>
                 <div className="w-full md:w-1/3 flex flex-col gap-6 min-h-[300px]">
-                    {offering && (<ProviderOffering offering={offering} />)}
+                    {offering && (<ProviderOffering offering={offering} userId={userId} />)}
 
                     {seoKeywordsString && (
                         <CommonIssueThatProviderCanHelp seokeywords={seoKeywordsString} />

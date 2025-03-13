@@ -8,7 +8,7 @@ import fetchPersonalizedPlanOfUser from '@/hooks/personalizePlanofPatientFroBubb
 
 export async function signupWithPassword(email, password) {
     const supabase = await createClient()
-    console.log("''hI form signup");
+
 
     const patientInfo = await VerifyAndGetDataFromBubble(email)
     console.log(patientInfo.response.count);

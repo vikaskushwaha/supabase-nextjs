@@ -37,7 +37,7 @@ export async function fetchPersonalizedPlanOfUser(patient_idFromBubble, email) {
         let allResults = [];
         let cursor = 0; // Start from the first page
         let hasMore = true;
-        console.log(email);
+
 
         while (hasMore) {
             const response = await axios.get(
@@ -55,12 +55,11 @@ export async function fetchPersonalizedPlanOfUser(patient_idFromBubble, email) {
 
             if (response.data.response && response.data.response.results.length > 0) {
                 allResults = [...allResults, ...response.data.response.results];
-                cursor += response.data.response.results.length; // Move to the next set
+                cursor += response.data.response.results.length;
             } else {
-                hasMore = false; // No more data, stop fetching
+                hasMore = false;
             }
         }
-        console.log("Total Plans Fetched:", allResults.length);
         await searchAndInsertInsupabsePersonalizedPlan(patient_idFromBubble, email, allResults);
 
         return allResults;

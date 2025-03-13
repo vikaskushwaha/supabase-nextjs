@@ -3,10 +3,15 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { getValidImageUrl } from "@/utils/client/imageUrlProcess";
-const ProviderOffering = ({ offering }) => {
+import { BuyingDetailsInBuyingTable } from "@/hooks/insertByingDeltailsInSupable";
+const ProviderOffering = ({ offering, userId }) => {
     const router = useRouter();
     const [openIndex, setOpenIndex] = useState(null);
-    const handleClick = () => {
+    const handleClick = async (item) => {
+
+
+
+        await BuyingDetailsInBuyingTable(item, userId)
         router.push("/dashboard")
     }
     const toggleAccordion = (index) => {
@@ -41,7 +46,7 @@ const ProviderOffering = ({ offering }) => {
                             <p className="text-gray-700">{item.description}</p>
                             <div className="flex justify-between items-center mt-3">
                                 <p className="font-semibold text-green-600">${item.price}</p>
-                                <button className="px-4 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={handleClick}>
+                                <button className="px-4 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={() => handleClick(item)}>
                                     Buy
                                 </button>
                             </div>

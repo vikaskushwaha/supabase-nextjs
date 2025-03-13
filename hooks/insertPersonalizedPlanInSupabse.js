@@ -4,14 +4,11 @@ const searchAndInsertInsupabsePersonalizedPlan = async (uniqueId, email, persona
 
     const supabase = await createClient()
     const plans = personalizedPlan.filter(personalizedPlan => personalizedPlan.patient_email === email)
-
-
     if (plans.length === 0) {
         console.log("No plans found for this email.");
         return;
     }
     const formattedPlans = plans.map((plan) => ({
-
         Modified_date: plan["Modified Date"] || null,
         Created_date: plan["Created Date"] || null,
         Created_by: plan["Created By"] || null,
@@ -38,11 +35,7 @@ const searchAndInsertInsupabsePersonalizedPlan = async (uniqueId, email, persona
         type: plan.type || null
 
     }));
-    // console.log("************", formattedPlans);
-
     const { data, error } = await supabase.from('Personalized_Plans').insert(formattedPlans);
-    console.log("***************", data);
-
     if (error) {
         console.error("Error inserting multiple plans:", error);
     } else {
